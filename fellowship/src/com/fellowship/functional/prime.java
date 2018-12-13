@@ -4,17 +4,15 @@ import java.util.Scanner;
 
 import com.fellowship.utilities.utilities;
 
-public class harmonic {
+public class prime {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 	     System.out.println("enter N: ");
-	     float n = sc.nextInt();
+	     int number = sc.nextInt();
 		 utilities u = new utilities();
-			u.har(n);
-
+			u.prime_factors(number);
 	}
 
-	
 }

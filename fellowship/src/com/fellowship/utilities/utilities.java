@@ -112,5 +112,120 @@ public class utilities {
 			harmonic.main(null);
 		}
 	}
+	public static void prime_factors(int number) {
+        // TODO Auto-generated method stub
+        
 
+        System.out.print("The prime iization of " + number + " is: ");
+
+        // for each potential factor
+        for (long i = 2; i*i <= number; i++) {
+
+            // if factor is a factor of number, repeatedly divide it out
+            while (number % i == 0) {
+                System.out.print(i + " ");
+                number = (int) (number / i);
+            }
+        }
+
+        // if biggest factor occurs only once, number > 1
+        if (number > 1)
+            {System.out.println(number);}
+        else       {System.out.println();}
+    }
+
+	
+
+	public void gamblergame(int s, int g, int t) {
+		// TODO Auto-generated method stub
+		int bets=0;
+		int wins=0;
+		int i;
+		
+		for(i=0;i<t;i++)
+		{
+			int c=s;
+			while(c>0 && c<g)
+			{
+				bets++;
+				 if (Math.random() < 0.5) c++;     // win $1
+	                else   c--;     // lose $1
+	            }
+	            if (c == g) wins++;                // did gambler go achieve desired goal?
+	        }
+
+	        // print results
+	        System.out.println(wins + " wins of " + t);
+	        System.out.println("Percent of games won = " + 100.0 * wins / t);
+	        System.out.println("Avg bets = " + 1.0 * bets / t);
+	    }
+
+	public static int couponr(int n) {
+		// TODO Auto-generated method stub
+		boolean[] isCollected = new boolean[n];  
+        int count = 0;                           
+        int distinct  = 0;                       // number of distinct card types collected
+
+        // repeat until you've collected all n card types
+        while (distinct < n) {
+            int value = (int) (Math.random()*n);            // pick a random card 
+            count++;                             // one more card
+            if (!isCollected[value]) {           // discovered a new card type
+                distinct++;
+                isCollected[value] = true;
+            }
+        }
+        return count;
+	}
+
+	public static void triple(int[] a, int n_length) {
+		// TODO Auto-generated method stub
+		
+		  
+		boolean found = true;
+        for (int i=0; i<n_length-2; i++)
+        {
+            for (int j=i+1; j<n_length-1; j++)
+            {
+                for (int k=j+1; k<n_length; k++)
+                {
+                    if (a[i]+a[j]+a[k] == 0)
+                    {
+                        System.out.print(a[i]);
+                        System.out.print(" ");
+                        System.out.print(a[j]);
+                        System.out.print(" ");
+                        System.out.print(a[k]);
+                        System.out.print("\n");
+                        found = true;
+                    }
+                }
+            }
+        } 
+    }
+
+	public void distance(int s, int a) {
+		// TODO Auto-generated method stub
+		double dist = Math.sqrt(s*s + a*a);
+		 
+        
+        System.out.println("distance from (" + s + ", " + a + ") to (0, 0) = " + dist);
+		
+	}
+
+	public void quadratic(double s, double a) {
+		// TODO Auto-generated method stub
+		double discr = s*s - 4.0*a;
+        double sqr =  Math.sqrt(discr);
+
+        double root1 = (-s + sqr) / 2.0;
+        double root2 = (-s - sqr) / 2.0;
+
+        System.out.println(root1);
+        System.out.println(root2);
+	} 
+		
+	
+
+	
 }
