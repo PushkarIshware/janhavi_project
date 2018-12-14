@@ -1,7 +1,17 @@
 package com.fellowship.utilities;
+import java.io.Console;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 import com.fellowship.functional.*;
 
 public class utilities {
+
+	private static final int USER = 0;
+	private static final int COMPUTER = 0;
+	private static final int EMPTY = 0;
+	private static final int STALEMATE = 0;
+	private static final int NONE = 0;
 
 	public static void multiply(int a) {
 		// TODO Auto-generated method stub
@@ -14,9 +24,17 @@ public class utilities {
 
 	public void change(String n) {
 		// TODO Auto-generated method stub
+		String r;
 		if (n.length()>=3)
 		{
-		System.out.println("hi "+n);
+		//System.out.println("change to:");
+		//String c = "changed to: ";
+		//r = n.replace(n, c);
+		//System.out.println(n+" is replaced with "+r);
+			String m= "Hello <<username>>,how are you?";
+			r = m.replace("<<username>>", n);
+		    System.out.println(r);
+		
 		namechange.main(null);
 		}
 		else
@@ -238,9 +256,220 @@ public class utilities {
 		{
 			System.out.println("condition is not satisfied");
 		}
-	} 
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static void game() {
+		// TODO Auto-generated method stub
+		utilities u = new utilities();
+		final int EMPTY =0;
+		final int STATEMENT = 0;
+	     int winner;
+		final int USER=0;
+		final int COMPUTER=0;
+		final int NONE = 0;
+		int moveof = 0;
+		int turn = USER;
+		
+		int[][] board = new int [3][3];
+		
+		u.print_board(board);
+		
+		while(true)
+		{
+			if(turn == USER)
+			{
+				System.out.println("your move");
+				moveof = -1;
+				while(moveof<0 || moveof>9 && board[moveof/3][moveof%3]!=EMPTY)
+				{
+					System.out.println("choose move between 0-8: ");
+				//	System.out.println(moveof+ " "+System.console().readLine());
+					//moveof = Integer.parseInt(System.console().readLine());
+					Scanner scanner=new Scanner(System.in);
+					moveof=scanner.nextInt();
+					System.out.println(moveof);
+				}
+			}
+				else
+				{
+					moveof = computer_move(board);
+					System.out.println("computer move: "+moveof );
+				}
+			board[(int)(moveof/3)][moveof%3] = turn;
+
+			u.print_board(board);
+			winner = u.checkwinner(board);
+		
+			if(winner!=NONE)
+			{
+				break;
+			}
+			if(turn==COMPUTER)
+			{
+				turn = USER;
+			}
+			else
+			{
+				turn= COMPUTER;
+			}
+			
+		}
+			if(USER==winner)
+			{
+				System.out.println("user win");
+			}
+			else if(COMPUTER==winner)
+			{
+				System.out.println("computer win");
+			}
+			else
+			{
+				System.out.println("tie");
+			}
+			}
+	
+		public static void print_board(int[][] board) {
+			// TODO Auto-generated method stub
+			
+			System.out.print(printChar(board[0][0]));
+			System.out.print("|");
+			System.out.print(printChar(board[0][1]));
+			System.out.print("|");
+			System.out.println(printChar(board[0][2]));
+			System.out.println("-----");
+			System.out.print(printChar(board[1][0]));
+			System.out.print("|");
+			System.out.print(printChar(board[1][1]));
+			System.out.print("|");
+			System.out.println(printChar(board[1][2]));
+			System.out.println("-----");
+			System.out.print(printChar(board[2][0]));
+			System.out.print("|");
+			System.out.print(printChar(board[2][1]));
+			System.out.print("|");
+			System.out.println(printChar(board[2][2])); 
+	}
+
+	private static char printChar(int i) {
+			// TODO Auto-generated method stub
+		if(i==USER)
+		{
+			return 'x';
+		}
+		else if(i==COMPUTER)
+		{
+			return 'o';
+		}
+		else if(i==EMPTY)
+		{
+			return ' ';
+		}
+		return 0;
+		
+		}
+
+	private static int checkwinner(int[][] board) {
+		// TODO Auto-generated method stub
+		if((board[0][0] == board[0][1]) && (board[0][1] == board[0][2]))
+		    return board[0][0];
+
+		if((board[1][0] == board[1][1]) && (board[1][1] == board[1][2]))
+		    return board[1][0];
+
+		if((board[2][0] == board[2][1]) && (board[2][1] == board[2][2]))
+		    return board[2][0];
+
+		
+		if((board[0][0] == board[1][0]) && (board[1][0] == board[2][0]))
+		    return board[0][0];
+
+		
+		if((board[0][1] == board[1][1]) && (board[1][1] == board[2][1]))
+		    return board[0][1];
+
+		
+		if((board[0][2] == board[1][2]) && (board[1][2] == board[2][2]))
+		    return board[0][2];
+
+		
+		if((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]))
+		    return board[0][0];
+
+		
+		if((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))
+		    return board[0][2];
+
+		if(board[0][0] == EMPTY || 
+	           board[0][1] == EMPTY || 
+	           board[0][2] == EMPTY || 
+		   board[1][0] == EMPTY ||
+		   board[1][1] == EMPTY ||
+		   board[1][2] == EMPTY ||
+		   board[2][0] == EMPTY ||
+		   board[2][1] == EMPTY ||
+		   board[2][2] == EMPTY)
+		    return NONE;
+
+		return STALEMATE;
+		
+	}
+
+	private static int computer_move(int[][] board) {
+		// TODO Auto-generated method stub
+		int moveof = (int)(Math.random()*9);
+
+		while(board[moveof/3][moveof%3] != EMPTY) 
+		    moveof = (int)(Math.random()*9);
+
+		return moveof;
+	}
+private static long starttime=0;
+private long endtime=0;
+private long elapse;
+
+	public static void start() {
+		// TODO Auto-generated method stub
+		utilities u = new utilities();
+		Scanner sc = new Scanner(System.in);
+		starttime=System.currentTimeMillis();
+		System.out.println("this is start time: "+starttime);
+		System.out.println("Press 1 to stop");
+        int st=sc.nextInt();
+        if (st==1) {
+            u.stop();
+            u.elapsed();
+        }
+        else {
+            System.out.println("Try again");
+        }
+    }
+    public void stop() {
+        endtime=System.currentTimeMillis();
+        System.out.println("Stop Time is: "+endtime);
+       
+    }
+    public void elapsed() {
+        elapse=endtime-starttime;
+        System.out.println("time Elapsed :"+elapse);
+    }
 		
 	
+public static void readint(int ad[][]) {
+    // TODO Auto-generated method stub
+    PrintWriter pw = new PrintWriter(System.out);
 
+    for (int r=0; r<ad.length; r++)
+    {
+        for (int c=0; c<ad.length; c++)
+        {
+            int z=ad[r][c];
+        
+        pw.print(z+"\t");
+        }
+        pw.println();
+        
+        pw.flush();
+    }
 	
+}
 }
