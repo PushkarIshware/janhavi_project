@@ -1,17 +1,15 @@
 package com.fellowship.utilities;
 import java.io.Console;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.fellowship.functional.*;
 
 public class utilities {
 
-	private static final int USER = 0;
-	private static final int COMPUTER = 0;
-	private static final int EMPTY = 0;
-	private static final int STALEMATE = 0;
-	private static final int NONE = 0;
+	
 
 	public static void multiply(int a) {
 		// TODO Auto-generated method stub
@@ -59,10 +57,13 @@ public class utilities {
 		{
 			h++;
 		}
+		else {
+			t++;
+		}
 		count++;
 		}
 		double perhead=(h/n)*100;
-		double pertail=((h-t)/n)*100;
+		double pertail=((t)/n)*100;
 		System.out.println("percent heads= "+perhead);
 		System.out.println("percent tails= "+pertail);
 		
@@ -178,9 +179,9 @@ public class utilities {
 	        System.out.println("Avg bets = " + 1.0 * bets / t);
 	    }
 
-	public static int couponr(int n) {
+	public static void couponr(int n) {
 		// TODO Auto-generated method stub
-		boolean[] isCollected = new boolean[n];  
+		/*boolean[] isCollected = new boolean[n];  
         int count = 0;                           
         int distinct  = 0;                       // number of distinct card types collected
 
@@ -193,7 +194,50 @@ public class utilities {
                 isCollected[value] = true;
             }
         }
-        return count;
+        return count;*/
+		
+        int i;
+  int count=0;
+        Scanner s = new Scanner(System.in);
+
+        //System.out.print("Enter no. of elements you want in array:");
+
+        //n = s.nextInt();
+
+        int a[] = new int[n];
+          
+        
+
+        for(i = 0; i < n; i++)
+
+        {
+        	System.out.println("Enter  elements:"+(i+1));
+            a[i] = s.nextInt();
+
+        }
+           s.close();
+           /*System.out.print("a:");
+           for(i = 0; i < n; i++)
+           {
+        System.out.print(a[i]);
+        	   
+           }*/
+           
+         int random = (int) (Math.random()*a[i]);
+          //int b[] = new int[i];
+          System.out.println(random);
+          //Random r = new Random();
+          /*int b[] = new int[i];
+          b[i]=random;
+          System.out.println(b[i]);*/
+          //int b[] = new int[n];
+          
+          /*for( i =0;i<a.length;i++)
+          {
+        	 
+        	  b[i]=(int) (Math.random()*i);
+          }
+          System.out.println("Numbers Generated: " + Arrays.toString(b));*/
 	}
 
 	public static void triple(int[] a, int n_length) {
@@ -258,118 +302,134 @@ public class utilities {
 		}
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+private static final int EMPTY=0;
+private static final int none=0;
+private static final int USER=1;
+private static final int COMPUTER=2;
+private static int stalement=3;
 	public static void game() {
-		// TODO Auto-generated method stub
-		utilities u = new utilities();
-		final int EMPTY =0;
-		final int STATEMENT = 0;
-	     int winner;
-		final int USER=0;
-		final int COMPUTER=0;
-		final int NONE = 0;
-		int moveof = 0;
-		int turn = USER;
+		int turn = COMPUTER;
+		int[][] board = new int[3][3];
+		int move,winner;
 		
-		int[][] board = new int [3][3];
-		
-		u.print_board(board);
-		
-		while(true)
-		{
-			if(turn == USER)
-			{
-				System.out.println("your move");
-				moveof = -1;
-				while(moveof<0 || moveof>9 && board[moveof/3][moveof%3]!=EMPTY)
-				{
-					System.out.println("choose move between 0-8: ");
-				//	System.out.println(moveof+ " "+System.console().readLine());
-					//moveof = Integer.parseInt(System.console().readLine());
-					Scanner scanner=new Scanner(System.in);
-					moveof=scanner.nextInt();
-					System.out.println(moveof);
-				}
+		print_board(board);
+		while(true) {
+		    if(turn == USER) {
+			System.out.println("Your move");
+			move = -1;
+			while (move<0 || move>8 || board[move/3][move%3] != EMPTY) {
+			    System.out.println("Please enter your move(0-8): ");
+			    Scanner sc = new Scanner(System.in);
+			    move = sc.nextInt();
+			    //System.out.println(move);
+			    /*if(move==move)
+			    {
+			    System.out.println("repeat");
+			    }*/
+			    if(move>8)
+			    {
+			    	System.out.println("enter move between 0-8");
+			    }
+			    
 			}
-				else
-				{
-					moveof = computer_move(board);
-					System.out.println("computer move: "+moveof );
-				}
-			board[(int)(moveof/3)][moveof%3] = turn;
+		    } else {
+			move = computer_move(board);
+			System.out.println("Computer move: " + move);
+		    }
 
-			u.print_board(board);
-			winner = u.checkwinner(board);
-		
-			if(winner!=NONE)
-			{
-				break;
-			}
-			if(turn==COMPUTER)
-			{
-				turn = USER;
-			}
-			else
-			{
-				turn= COMPUTER;
-			}
-			
+		  
+		    board[(int)(move/3)][move%3] = turn;
+
+		   
+		    print_board(board);
+
+		    winner = checkWinner(board);
+
+		    if(winner != none)
+			break;
+
+		    if(turn == USER) {
+			turn = COMPUTER;
+		    } else {
+			turn = USER;
+		    }
+
 		}
-			if(USER==winner)
-			{
-				System.out.println("user win");
-			}
-			else if(COMPUTER==winner)
-			{
-				System.out.println("computer win");
-			}
-			else
-			{
-				System.out.println("tie");
-			}
-			}
+		
+		switch(winner) {
+		case USER:
+		    System.out.println("You won!");
+		    break;
+		case COMPUTER: 
+		    System.out.println("Computer won!");
+		    break;
+		default:
+		    System.out.println("Tie!");
+		    break;
+		}
+		/*if(winner==USER)
+		{
+			System.out.println("You won!");
+		}
+		if(winner==COMPUTER)
+		{
+			System.out.println("COMPUTER WON!");
+		}
+		if(winner!=USER && winner!=COMPUTER)
+		{
+			System.out.println("tie");
+		}*/
+	    }
+	public static void print_board(int[][] board) {
+		System.out.print(printChar(board[0][0]));
+		System.out.print("|");
+		System.out.print(printChar(board[0][1]));
+		System.out.print("|");
+		System.out.println(printChar(board[0][2]));
+		System.out.println("-----");
+		System.out.print(printChar(board[1][0]));
+		System.out.print("|");
+		System.out.print(printChar(board[1][1]));
+		System.out.print("|");
+		System.out.println(printChar(board[1][2]));
+		System.out.println("-----");
+		System.out.print(printChar(board[2][0]));
+		System.out.print("|");
+		System.out.print(printChar(board[2][1]));
+		System.out.print("|");
+		System.out.println(printChar(board[2][2]));
+	    }
 	
-		public static void print_board(int[][] board) {
-			// TODO Auto-generated method stub
-			
-			System.out.print(printChar(board[0][0]));
-			System.out.print("|");
-			System.out.print(printChar(board[0][1]));
-			System.out.print("|");
-			System.out.println(printChar(board[0][2]));
-			System.out.println("-----");
-			System.out.print(printChar(board[1][0]));
-			System.out.print("|");
-			System.out.print(printChar(board[1][1]));
-			System.out.print("|");
-			System.out.println(printChar(board[1][2]));
-			System.out.println("-----");
-			System.out.print(printChar(board[2][0]));
-			System.out.print("|");
-			System.out.print(printChar(board[2][1]));
-			System.out.print("|");
-			System.out.println(printChar(board[2][2])); 
-	}
-
-	private static char printChar(int i) {
-			// TODO Auto-generated method stub
-		if(i==USER)
-		{
-			return 'x';
+	
+	public static char printChar(int b) {
+		
+		switch(b) {
+		case EMPTY:
+		    return ' ';
+		case USER:
+		    return 'X';
+		case COMPUTER:
+		    return 'O';
 		}
-		else if(i==COMPUTER)
-		{
-			return 'o';
-		}
-		else if(i==EMPTY)
+		return ' '; 
+	}	
+		/*if(b==EMPTY)
 		{
 			return ' ';
 		}
-		return 0;
-		
+		else if(b==USER)
+		{
+			return 'X';
 		}
-
-	private static int checkwinner(int[][] board) {
-		// TODO Auto-generated method stub
+		else if (b==COMPUTER)
+		{
+			return 'O';
+		}
+		return 0;
+	    }*/
+	
+	public static int checkWinner(int[][] board) {
+		
 		if((board[0][0] == board[0][1]) && (board[0][1] == board[0][2]))
 		    return board[0][0];
 
@@ -379,15 +439,13 @@ public class utilities {
 		if((board[2][0] == board[2][1]) && (board[2][1] == board[2][2]))
 		    return board[2][0];
 
-		
+
 		if((board[0][0] == board[1][0]) && (board[1][0] == board[2][0]))
 		    return board[0][0];
 
-		
 		if((board[0][1] == board[1][1]) && (board[1][1] == board[2][1]))
 		    return board[0][1];
 
-		
 		if((board[0][2] == board[1][2]) && (board[1][2] == board[2][2]))
 		    return board[0][2];
 
@@ -395,7 +453,6 @@ public class utilities {
 		if((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]))
 		    return board[0][0];
 
-		
 		if((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))
 		    return board[0][2];
 
@@ -408,21 +465,24 @@ public class utilities {
 		   board[2][0] == EMPTY ||
 		   board[2][1] == EMPTY ||
 		   board[2][2] == EMPTY)
-		    return NONE;
+		    return none;
 
-		return STALEMATE;
+		return stalement;
+	    }
+
+	    public static int computer_move(int[][] board) {
+		int move = (int)(Math.random()*9);
+
+		while(board[move/3][move%3] != EMPTY) 
+		    move = (int)(Math.random()*9);
+
+		return move;
+	    }
 		
-	}
 
-	private static int computer_move(int[][] board) {
-		// TODO Auto-generated method stub
-		int moveof = (int)(Math.random()*9);
-
-		while(board[moveof/3][moveof%3] != EMPTY) 
-		    moveof = (int)(Math.random()*9);
-
-		return moveof;
-	}
+		
+	
+		//////////////////////////////////////////////////////////////////////////////////////////
 private static long starttime=0;
 private long endtime=0;
 private long elapse;
