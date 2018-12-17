@@ -10,13 +10,13 @@ public class gambler {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 	     System.out.println("enter stake: ");
-	     int s = sc.nextInt();
+	     int stake = sc.nextInt();
 	     System.out.println("enter goal: ");
-	     int g = sc.nextInt();
+	     int goal = sc.nextInt();
 	     System.out.println("enter trials: ");
-	     int t = sc.nextInt();
+	     int turn = sc.nextInt();
 		 utilities u = new utilities();
-			u.gamblergame(s, g, t);
+			u.gamblergame(stake, goal, turn);
 	}
 
 }

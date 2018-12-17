@@ -1,7 +1,9 @@
 package com.fellowship.utilities;
 import java.io.Console;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,6 +13,7 @@ public class utilities {
 
 	
 
+	private static Scanner input;
 	public static void multiply(int a) {
 		// TODO Auto-generated method stub
 		int c;
@@ -155,89 +158,66 @@ public class utilities {
 
 	
 
-	public void gamblergame(int s, int g, int t) {
+	public void gamblergame(int stake, int goal, int turn) {
 		// TODO Auto-generated method stub
 		int bets=0;
 		int wins=0;
 		int i;
+		int loss=0;
 		
-		for(i=0;i<t;i++)
+		for(i=0;i<turn;i++)
 		{
-			int c=s;
-			while(c>0 && c<g)
+			int cash=stake;
+			while(cash>0 && cash<goal)
 			{
 				bets++;
-				 if (Math.random() < 0.5) c++;     // win $1
-	                else   c--;     // lose $1
+				 if (Math.random() < 0.5) cash++;     // win $1
+	                else   cash--;     // lose $1
 	            }
-	            if (c == g) wins++;                // did gambler go achieve desired goal?
+	            if (cash == goal) {wins++; }
+	            else
+	            {loss++;}
 	        }
 
 	        // print results
-	        System.out.println(wins + " wins of " + t);
-	        System.out.println("Percent of games won = " + 100.0 * wins / t);
-	        System.out.println("Avg bets = " + 1.0 * bets / t);
+	        System.out.println(wins + " wins of " + turn);
+	        System.out.println("% of games won = " + 100.0 * wins / turn);
+	        System.out.println("Avg bets = " + 1.0 * bets / turn);
+	        System.out.println("loss: "+loss);
 	    }
 
 	public static void couponr(int n) {
 		// TODO Auto-generated method stub
-		/*boolean[] isCollected = new boolean[n];  
-        int count = 0;                           
-        int distinct  = 0;                       // number of distinct card types collected
+		int count = collect(n);
+		System.out.println(count);          
+       
+	}
 
-        // repeat until you've collected all n card types
-        while (distinct < n) {
-            int value = (int) (Math.random()*n);            // pick a random card 
-            count++;                             // one more card
-            if (!isCollected[value]) {           // discovered a new card type
-                distinct++;
-                isCollected[value] = true;
-            }
-        }
-        return count;*/
+	private static int collect(int n) {
+		// TODO Auto-generated method stub
+		boolean[] b = new boolean[n];
+		int count=0;
+		int dis=0;
 		
-        int i;
-  int count=0;
-        Scanner s = new Scanner(System.in);
+		while(dis<n)
+			
+		{
+			int val = coupen(n);
+			count++;
+			if(!b[val])
+			{
+				dis++;
+				b[val]=true;
+			}
+			
+		}
+		return count;
+	}
 
-        //System.out.print("Enter no. of elements you want in array:");
-
-        //n = s.nextInt();
-
-        int a[] = new int[n];
-          
-        
-
-        for(i = 0; i < n; i++)
-
-        {
-        	System.out.println("Enter  elements:"+(i+1));
-            a[i] = s.nextInt();
-
-        }
-           s.close();
-           /*System.out.print("a:");
-           for(i = 0; i < n; i++)
-           {
-        System.out.print(a[i]);
-        	   
-           }*/
-           
-         int random = (int) (Math.random()*a[i]);
-          //int b[] = new int[i];
-          System.out.println(random);
-          //Random r = new Random();
-          /*int b[] = new int[i];
-          b[i]=random;
-          System.out.println(b[i]);*/
-          //int b[] = new int[n];
-          
-          /*for( i =0;i<a.length;i++)
-          {
-        	 
-        	  b[i]=(int) (Math.random()*i);
-          }
-          System.out.println("Numbers Generated: " + Arrays.toString(b));*/
+	private static int coupen(int n) {
+		// TODO Auto-generated method stub
+		int a = (int)(Math.random()*n);
+		return a;
 	}
 
 	public static void triple(int[] a, int n_length) {
@@ -321,11 +301,7 @@ private static int stalement=3;
 			    System.out.println("Please enter your move(0-8): ");
 			    Scanner sc = new Scanner(System.in);
 			    move = sc.nextInt();
-			    //System.out.println(move);
-			    /*if(move==move)
-			    {
-			    System.out.println("repeat");
-			    }*/
+			    
 			    if(move>8)
 			    {
 			    	System.out.println("enter move between 0-8");
@@ -456,7 +432,7 @@ private static int stalement=3;
 		if((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))
 		    return board[0][2];
 
-		if(board[0][0] == EMPTY || 
+		/*if(board[0][0] == EMPTY || 
 	           board[0][1] == EMPTY || 
 	           board[0][2] == EMPTY || 
 		   board[1][0] == EMPTY ||
@@ -465,7 +441,7 @@ private static int stalement=3;
 		   board[2][0] == EMPTY ||
 		   board[2][1] == EMPTY ||
 		   board[2][2] == EMPTY)
-		    return none;
+		    return none;*/
 
 		return stalement;
 	    }
@@ -532,4 +508,126 @@ public static void readint(int ad[][]) {
     }
 	
 }
+
+public static void anagramcheck(String n, String m) {
+	// TODO Auto-generated method stub
+	if(n.length()!=m.length())
+	{
+System.out.println("no same length");	}
+	n=n.toLowerCase();
+	m=m.toLowerCase();
+	char a[]=n.toCharArray();
+	char b[]=m.toCharArray();
+	Arrays.sort(a);
+	Arrays.sort(b);
+
+	if(Arrays.equals(a, b))
+	{
+		System.out.println("anagram");
+		
+	}
+	else 
+	{
+		System.out.println("not anagram");
+	}
+	
 }
+
+public static void primenum() {
+	// TODO Auto-generated method stub
+	int i;
+	int num=0;
+	String numbers=" ";
+	for(i=1;i<=1000;i++)
+	{    int count=0;
+		for(num=i;num>=1;num--)
+		{
+			if(i%num==0)
+			{
+				count=count+1;
+			}
+		}
+		if(count==2)
+		{
+			numbers = numbers+i+" ";
+		}
+	}
+	 System.out.println(numbers);
+}
+
+public static void condition() {
+	// TODO Auto-generated method stub
+	int i;
+	int num=0;
+	//String numbers=" ";
+	for(i=1;i<=1000;i++)
+	{    int count=0;
+		for(num=i;num>=1;num--)
+		{
+			if(i%num==0)
+			{
+				count=count+1;
+			}
+		}
+		if(count==2)
+		{ 
+			System.out.print("|"+i);
+			palindrom(i);
+				
+		}
+		
+	}
+	 //System.out.println(numbers);
+}
+public static void palindrom(int n) {
+	
+        int r,sum=0,temp;
+        temp=n;    
+          while(n>0){    
+           r=n%10;
+           sum=(sum*10)+r;    
+           n=n/10;    
+          }    
+          if(temp==sum)
+              
+           System.out.print(" palindrome number");    
+          /*else    
+          System.out.println("not palindrome number"); */ 
+        
+        
+    }
+
+public static int searchbinary(int[] arr, int key) {
+	// TODO Auto-generated method stub
+	 int start=0;
+     int end=arr.length-1;
+     
+     //System.out.println(start+" "+end);
+     
+     while(start <= end)
+     {
+         int mid = (start+end)/2;
+         //System.out.println(mid);
+         if(arr[mid]==key) {
+             System.out.println(mid);
+             }
+         if(key<arr[mid])
+         {
+             end=mid-1;
+         }
+         else
+         {
+         start=mid+1;
+         }
+         
+     }
+     return -1;
+     
+ }
+}
+
+
+
+
+
+
