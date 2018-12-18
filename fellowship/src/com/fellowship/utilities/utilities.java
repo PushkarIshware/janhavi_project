@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+
 import com.fellowship.functional.*;
 
 public class utilities {
@@ -597,19 +599,21 @@ public static void palindrom(int n) {
         
     }
 
-public static int searchbinary(int[] arr, int key) {
+
+
+public static void searchbinary(int[] arr, int key) {
 	// TODO Auto-generated method stub
+	long startTime = System.currentTimeMillis();
 	 int start=0;
      int end=arr.length-1;
-     
-     //System.out.println(start+" "+end);
-     
+        
      while(start <= end)
      {
          int mid = (start+end)/2;
-         //System.out.println(mid);
+        
          if(arr[mid]==key) {
-             System.out.println(mid);
+             System.out.println("element found at position: "+mid);
+             break;
              }
          if(key<arr[mid])
          {
@@ -621,10 +625,215 @@ public static int searchbinary(int[] arr, int key) {
          }
          
      }
-     return -1;
+     
+     if(start>end)
+     {
+    	 System.out.println("not found");
+     } 
+     long endTime = System.currentTimeMillis();
+ 	long elapsed = (endTime-startTime)/1000;
+ 	System.out.println("\n time: "+elapsed);
      
  }
+
+public static int[] countletter(String st)
+{
+	int count[]=new int[36];
+    for(int i=0;i<st.length();i++)
+    {
+        char ch=st.charAt(i);
+        if(ch>='A' && ch<='Z')
+            count[ch-65]++;
+        if(ch>='a' && ch<='z')
+            count[ch-97]++;
+        if(ch>='0' && ch<='9')
+            count[ch-22]++;
+    }
+    return count;
+	}
+
+public static void searchbinarystring(String[] arr2, String key1) {
+	// TODO Auto-generated method stub
+	long startTime = System.currentTimeMillis();
+	int start=0;
+	int end = arr2.length-1;
+	
+	while(start<=end)
+	{
+		int mid = (start+end)/2;
+		int a = key1.compareTo(arr2[mid]);
+		if(a==0)
+		{
+			end=mid;
+			System.out.println("found at : "+mid);
+			break;
+		}
+		if(a>0)
+		{
+			start=mid+1;
+			
+		}
+		else
+		{
+			end = mid-1;
+		}
+	}
+	if(start>end)
+	{
+		System.out.println("not found");
+	}
+	long endTime = System.currentTimeMillis();
+	long elapsed = (endTime-startTime)/1000;
+	System.out.println("\n time: "+elapsed);
 }
+
+public static void insertionsort(int[] arr) {
+	// TODO Auto-generated method stub
+	long startTime = System.currentTimeMillis();
+	for(int j=1;j<arr.length;j++)
+	{
+		int key = arr[j];
+		int comp = j-1;
+		while((comp>-1) && (arr[comp]>key))
+		{
+			arr[comp+1]=arr[comp];
+			comp--;
+		}
+		arr[comp+1]=key;
+	}
+	System.out.println("\n after sort:");
+	for(int j=0;j<arr.length;j++)
+	{
+	System.out.print(arr[j]+" ");
+	}
+	long endTime = System.currentTimeMillis();
+	long elapsedb = (endTime-startTime)/1000;
+	System.out.println("\n time: "+elapsedb);
+}
+
+public static void insertionsortstring(String[] arr2) {
+	// TODO Auto-generated method stub
+	long startTime = System.currentTimeMillis();
+	String temp="";
+	 for (int i=0;i<arr2.length-1;i++) {
+	        for (int j =i+1;j<arr2.length-1;j++) {
+	            if(arr2[i].compareToIgnoreCase(arr2[j])>0) {
+	                temp = arr2[i];
+	                arr2[i]=arr2[j];
+	                arr2[j]=temp;
+	               
+	            }
+	           
+	        }
+	       
+	    }
+	 System.out.println("\n after sort: ");
+	    for (int e=0;e<arr2.length;e++) {
+	        System.out.print(arr2[e]+" ");
+	       
+	    }
+	    long endTime = System.currentTimeMillis();
+		long elapsed = (endTime-startTime)/1000;
+		System.out.println("\n time: "+elapsed);
+}
+
+public static void bubblesort(int[] arr) {
+	// TODO Auto-generated method stub
+	long startTime = System.currentTimeMillis();
+	int n = arr.length;  
+	int temp = 0;  
+	int count = 0;
+	for(int i=0; i < n; i++) // Looping through the array length
+	{   
+		for(int j=1; j < (n-i); j++)
+		{  
+		       
+			if(arr[j-1]>arr[j])
+			{   
+			    
+				
+				temp=arr[j-1];
+			    arr[j-1]=arr[j];
+			    arr[j]=temp;     
+			}  
+              
+		}  
+		count++;
+        System.out.println("\n pass : "+count);
+        for(int t=0; t < n; t++) {
+        	System.out.print(arr[t]+" ");
+        }
+	}  
+	System.out.println("\n sorted array is : ");
+	for(int t=0; t < n; t++) {
+    	System.out.print(arr[t]+" ");
+    }
+	long endTime = System.currentTimeMillis();
+	long elapsedb = (endTime-startTime)/1000;
+	System.out.println("\n time: "+elapsedb);
+} 
+
+
+
+
+public static void bubblesortstring(String[] arr2) {
+	// TODO Auto-generated method stub
+	long startTime = System.currentTimeMillis();
+	int n = arr2.length;  
+	String temp;  
+	int count = 0;
+	for(int i=0; i < n; i++) // Looping through the array length
+	{   
+		for(int j=1; j < (n-i); j++)
+		{  
+		       
+			if(arr2[j-1].compareToIgnoreCase(arr2[j])>0)
+			{   
+			    
+				
+				temp=arr2[j-1];
+			    arr2[j-1]=arr2[j];
+			    arr2[j]=temp;     
+			}  
+              
+		}  
+		count++;
+        System.out.println("\n pass : "+count);
+        for(int t=0; t < n; t++) {
+        	System.out.print(arr2[t]+" ");
+        }
+	}  
+	System.out.println("\n sorted array is : ");
+	for(int t=0; t < n; t++) {
+    	System.out.print(arr2[t]+" ");
+    }
+	long endTime = System.currentTimeMillis();
+	long elapsed = (endTime-startTime)/1000;
+	System.out.println("\n time: "+elapsed);
+	//continueagain(array);
+}
+
+public static int que(int high, int low) {
+	// TODO Auto-generated method stub
+	Scanner sc=new Scanner(System.in);
+	if ((high - low)==1) {
+	    return low;
+	}
+	
+	int mid=(high+low)/2;
+	System.out.println("Is Your number less than "+mid+"  1 to Yes orrrrrr 0 to NO");
+	int a =sc.nextInt();
+	if (a==1) {
+	    return que(low, mid);
+	}
+	else {
+	    return que(mid, high);
+	    
+}
+
+}
+}
+
 
 
 
