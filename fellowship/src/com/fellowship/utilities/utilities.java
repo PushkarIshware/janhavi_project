@@ -1,5 +1,10 @@
 package com.fellowship.utilities;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -831,6 +836,25 @@ public static int que(int high, int low) {
 	    
 }
 
+}
+
+public static void textread() throws IOException {
+	// TODO Auto-generated method stub
+	 File file =new File("/home/admin1/janhavi_project/sample.txt");
+	    String values[] = null;
+	    Scanner sc =new Scanner(System.in);
+	      String line = null;
+	     BufferedReader br = new BufferedReader(new FileReader(file));
+	     while ((line = br.readLine()) != null) {
+	           values = line.split(",");
+	          for (String str : values) {
+	            System.out.println(str);
+	          }
+	        }
+	        br.close();
+	        System.out.println("Enter Element to search  :");
+	        String key2=sc.nextLine();
+	        searchbinarystring(values,key2);
 }
 }
 
