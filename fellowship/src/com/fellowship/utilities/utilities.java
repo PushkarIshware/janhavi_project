@@ -856,7 +856,217 @@ public static void textread() throws IOException {
 	        String key2=sc.nextLine();
 	        searchbinarystring(values,key2);
 }
+
+public static void insearch() {
+	// TODO Auto-generated method stub
+	Scanner sc = new Scanner(System.in);
+	String a[] = new String[5];
+	for (int i = 0; i < a.length; i++) {
+		System.out.print("Enter names " + (i+1) + " : ");
+	        a[i] = sc.nextLine();
+	}
+	    
+	System.out.println("array :");
+	for (int i = 0; i < a.length; i++) {
+		
+	        System.out.print(a[i] + "\n");
+	}
+	  
+insertionsortstring(a);
+
+    
+    
 }
+
+public static void bubblesortread() {
+	// TODO Auto-generated method stub
+	int[] a=new int[6];
+    Scanner sc=new Scanner(System.in);
+    System.out.println("Please enter elements...");
+    for(int j=0;j<6;j++)
+        a[j]=sc.nextInt();
+    System.out.println("Array elements are : ");
+    for (int i=0;i<a.length;i++)
+        System.out.println(a[i]);
+    bubblesort(a);
+}
+
+
+
+
+
+public static String[] mergeSort(String[] list) {
+    String [] sorted = new String[list.length];
+    if (list.length == 1) {
+        sorted = list;
+    } else {
+        int mid = list.length/2;
+        String[] L = null; 
+        String[] R = null;
+        if ((list.length % 2) == 0) {
+            L = new String[list.length/2];
+            R = new String[list.length/2];
+        } else { 
+            L = new String[list.length/2];
+            R = new String[(list.length/2)+1];
+        }
+        int x=0;
+        int y=0;
+        for ( ; x < mid; x++) {
+            L[x] = list[x];
+        }
+        for ( ; x < list.length; x++) {
+            R[y++] = list[x];
+        }
+        L = mergeSort(L);
+        R = mergeSort(R);
+        sorted = mergeArray(L,R);
+    }
+
+    return sorted;
+}
+
+private static String[] mergeArray(String[] L, String[] R) {
+    String[] merged = new String[L.length+R.length];
+    int li = 0;
+    int ri = 0;
+    int mi = 0;
+    int comp = 0;
+    while (li < L.length || ri < R.length) {
+        if (li == L.length) {
+            merged[mi++] = R[ri++];
+        } else if (ri == R.length) {
+            merged[mi++] = L[li++];
+        } else {  
+            comp = L[li].compareTo(R[ri]);
+            if (comp > 0) {
+                merged[mi++] = R[ri++];
+            } else if (comp < 0) {
+                merged[mi++] = L[li++];
+            } else { 
+                merged[mi++] = L[li++];
+            }
+        }   
+    }
+    return merged;
+}
+static int [] note = {100,500,100,50,10,5,2,1};
+static int index=0;
+public static int totalnotes=0;
+
+public static int vending(int amount , int[] note) {
+	// TODO Auto-generated method stub
+	
+   
+	int remaining;
+	if(amount==0)
+	{
+return -1;	}
+	else {
+		
+		
+		if(amount>=note[index])
+		{
+			
+			int calculatenote = amount / note[index];
+			remaining = amount % note[index];
+			amount = remaining;
+			totalnotes += calculatenote;
+			System.out.println(calculatenote+" of "+note[index]);
+		}
+		index++;
+		
+return vending(amount,note);	}
+	
+	
+}
+
+public static void dayweek(int d, int m , int y) {
+	// TODO Auto-generated method stub
+	
+	if(d>0 && d<=31 && m>0 && m<=12) {
+		
+	int y0 = y - (14 - m) / 12;
+    int x = y0 + y0/4 - y0/100 + y0/400;
+    int m0 = m + 12 * ((14 - m) / 12) - 2;
+    int d0 = (d + x + (31*m0)/12) % 7;
+
+    System.out.println(d0);
+	}
+	else {
+		System.out.println("enter valid data");
+		dayofweek.main(null);
+	}
+}
+/*public static char[] c;
+public static char[] f1;*/
+public static void ftoc(double f) {
+	// TODO Auto-generated method stub
+	double c =(f - 32) * (0.56) ;
+	System.out.println(c);
+}
+
+public static void ctof(double c1) {
+	// TODO Auto-generated method stub
+	double f1 =(c1 * (1.8)) + 32;
+	System.out.println(f1);
+}
+
+public static void payment(double Y, double R, double P) {
+	// TODO Auto-generated method stub
+	double n = 12*Y;
+	double r = R /(12*100);
+	double z= Math.pow((1+r), (-n));
+	double payment = (P*r)/( 1 - z);
+	System.out.println("payment: "+payment);
+}
+
+public static void sqrn(int n) {
+	// TODO Auto-generated method stub
+	double epsilon = 1e-15; 
+	double t = n; 
+	 while (Math.abs(t - n/t) > epsilon*t) {
+         t = (n/t + t) / 2.0;
+     }
+    
+System.out.println(t);
+}
+
+public static String binary(int n) {
+	// TODO Auto-generated method stub
+	String z = Integer.toString(n,2);
+	while(z.length()!=8)
+	{
+		z="0"+z;
+	}
+	return z;
+	//System.out.println("binary number is :"+z);
+	
+}
+
+public static void binarys(int n) {
+	// TODO Auto-generated method stub
+	String m=binary(n);
+	final int mid = m.length() / 2; //get the middle of the String
+	String[] parts = {m.substring(0, mid),m.substring(mid)};
+	System.out.println(parts[0]); //first part
+	System.out.println(parts[1]);
+	String temp = parts[0];
+	parts[0]=parts[1];
+	parts[1]=temp;
+	
+	String l = parts[0]+ parts[1];
+	System.out.println(l);
+	int num = Integer.parseInt(l);
+	int k =Integer.parseInt(l,2);
+	System.out.println("new decimal: "+k);
+	
+}
+	
+}
+
+
+
 
 
 
